@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartToolbox | All-in-One Professional Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-bright: #818cf8;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --bg: #0f172a;
+      --surface: rgba(30, 41, 59, 0.6);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --nav-bg: rgba(15, 23, 42, 0.9);
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* PREMIUM ANIMATED BACKGROUND */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+      z-index: -1;
+    }
+
+    /* GLASS NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--nav-bg);
+      padding: 15px 8%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      color: white;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      letter-spacing: -1px;
+    }
+
+    .nav-brand span {
+      color: var(--primary-bright);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active-nav {
+      color: white;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links a.active-nav {
+      color: var(--primary-bright);
+      box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.1);
+    }
+
+    /* CONTAINERS */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .active-section {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin: 0;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    /* GRID SYSTEM */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    /* PREMIUM CARDS */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .home-card {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .home-card:hover {
+      transform: translateY(-12px);
+      border-color: var(--primary-bright);
+      box-shadow: 0 0 40px var(--primary-glow);
+    }
+
+    .icon-box {
+      font-size: 45px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* CALCULATOR DESIGN */
+    .calc-card {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 0 0 8px 5px;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 25px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.5);
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      background: rgba(15, 23, 42, 0.8);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-bright));
+      color: white;
+      border: none;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 0px #312e81;
+      transition: 0.1s;
+      position: relative;
+      top: 0;
+    }
+
+    button:active {
+      top: 6px;
+      box-shadow: 0 2px 0px #312e81;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary-bright);
+      border: 1px dashed var(--border);
+      font-size: 1.2rem;
+      word-break: break-all;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a class="nav-brand" onclick="show('home')">Smart<span>Toolbox</span></a>
+    <div class="nav-links">
+      <a id="link-home" onclick="show('home', this)" class="active-nav">Home</a>
+      <a id="link-age" onclick="show('age', this)">Age</a>
+      <a id="link-bmi" onclick="show('bmi', this)">BMI</a>
+      <a id="link-emi" onclick="show('emi', this)">EMI</a>
+      <a id="link-pwd" onclick="show('pwd', this)">Pass</a>
+      <a id="link-unt" onclick="show('unt', this)">Units</a>
+      <a id="link-tip" onclick="show('tip', this)">Tips</a>
+    </div>
+  </nav>
+
+  <div id="home" class="container active-section">
+    <div class="hero">
+      <h1>Smart <span>Calculators.</span></h1>
+      <p>A high-fidelity suite of tools for professional precision.</p>
+    </div>
+    <div class="grid">
+      <div class="card home-card" onclick="show('age', document.getElementById('link-age'))">
+        <span class="icon-box">🗓️</span>
+        <h3>Age Analysis</h3>
+        <p>Chronological breakdown of birth data.</p>
+      </div>
+      <div class="card home-card" onclick="show('bmi', document.getElementById('link-bmi'))">
+        <span class="icon-box">⚖️</span>
+        <h3>Body Index</h3>
+        <p>Health markers and BMI categories.</p>
+      </div>
+      <div class="card home-card" onclick="show('emi', document.getElementById('link-emi'))">
+        <span class="icon-box">💰</span>
+        <h3>Finance EMI</h3>
+        <p>Monthly loan and debt planning.</p>
+      </div>
+      <div class="card home-card" onclick="show('pwd', document.getElementById('link-pwd'))">
+        <span class="icon-box">🔑</span>
+        <h3>Pass Fortress</h3>
+        <p>Secure password entropy generation.</p>
+      </div>
+      <div class="card home-card" onclick="show('unt', document.getElementById('link-unt'))">
+        <span class="icon-box">📏</span>
+        <h3>Unit Hub</h3>
+        <p>Metric and Imperial standard conversion.</p>
+      </div>
+      <div class="card home-card" onclick="show('tip', document.getElementById('link-tip'))">
+        <span class="icon-box">💸</span>
+        <h3>Tip Split</h3>
+        <p>Automated bill and gratuity division.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="age" class="container">
+    <div class="card calc-card">
+      <h2>Age Analysis</h2>
+      <label>Date of Birth</label>
+      <input type="date" id="dob">
+      <button onclick="ageCalc()">Calculate</button>
+      <div class="result" id="ageRes">Enter birth date</div>
+    </div>
+  </div>
+
+  <div id="bmi" class="container">
+    <div class="card calc-card">
+      <h2>Body Index</h2>
+      <label>Height (cm)</label><input type="number" id="h" placeholder="175">
+      <label>Weight (kg)</label><input type="number" id="w" placeholder="70">
+      <button onclick="bmiCalc()">Analyze</button>
+      <div class="result" id="bmiRes">Awaiting metrics...</div>
+    </div>
+  </div>
+
+  <div id="emi" class="container">
+    <div class="card calc-card">
+      <h2>EMI Planner</h2>
+      <label>Principal</label><input type="number" id="p" placeholder="50000">
+      <label>Interest %</label><input type="number" id="r" placeholder="8.5">
+      <label>Years</label><input type="number" id="t" placeholder="5">
+      <button onclick="emiCalc()">Calculate</button>
+      <div class="result" id="emiRes">Monthly Payment</div>
+    </div>
+  </div>
+
+  <div id="pwd" class="container">
+    <div class="card calc-card">
+      <h2>Pass Fortress</h2>
+      <label>Length</label><input type="number" id="pwdLen" value="16">
+      <button onclick="pwdGen()">Generate</button>
+      <div class="result" id="pwdRes">...</div>
+      <button onclick="copyPwd()"
+        style="background:transparent; box-shadow:none; font-size:12px; margin-top:10px; text-decoration:underline;">Copy
+        Password</button>
+    </div>
+  </div>
+
+  <div id="unt" class="container">
+    <div class="card calc-card">
+      <h2>Unit Hub</h2>
+      <label>Kilometers</label><input type="number" id="km" placeholder="10">
+      <button onclick="unitConv()">To Miles</button>
+      <div class="result" id="untRes">Result</div>
+    </div>
+  </div>
+
+  <div id="tip" class="container">
+    <div class="card calc-card">
+      <h2>Tip Split</h2>
+      <label>Total Bill</label><input type="number" id="bill" placeholder="100">
+      <label>Tip %</label><input type="number" id="tipPerc" value="15">
+      <button onclick="tipCalc()">Split</button>
+      <div class="result" id="tipRes">Result</div>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 SmartToolbox • Professional Infrastructure</footer>
+
+  <script>
+    function show(id, el) {
+      document.querySelectorAll('.container').forEach(c => c.classList.remove('active-section'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+
+      document.getElementById(id).classList.add('active-section');
+
+      // If clicking from home grid, el might be passed, otherwise find it
+      const link = el || document.getElementById('link-' + id);
+      if (link) link.classList.add('active-nav');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function ageCalc() {
+      const val = document.getElementById("dob").value;
+      if (!val) return;
+      const d = new Date(val);
+      const today = new Date();
+      if (d > today) return document.getElementById("ageRes").innerText = "Date in future!";
+      let age = today.getFullYear() - d.getFullYear();
+      if (today.getMonth() < d.getMonth() || (today.getMonth() === d.getMonth() && today.getDate() < d.getDate())) age--;
+      document.getElementById("ageRes").innerText = age + " Years Old";
+    }
+
+    function bmiCalc() {
+      const h = document.getElementById("h").value / 100, w = document.getElementById("w").value;
+      if (h > 0 && w > 0) {
+        const bmi = (w / (h * h)).toFixed(1);
+        let cat = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Healthy" : "Overweight";
+        document.getElementById("bmiRes").innerText = `BMI: ${bmi} (${cat})`;
+      }
+    }
+
+    function emiCalc() {
+      const p = +document.getElementById("p").value, r = +document.getElementById("r").value / 12 / 100, t = +document.getElementById("t").value * 12;
+      if (p && r && t) {
+        const emi = ((p * r * Math.pow(1 + r, t)) / (Math.pow(1 + r, t) - 1)).toFixed(2);
+        document.getElementById("emiRes").innerText = "$" + emi + " /mo";
+      }
+    }
+
+    function pwdGen() {
+      const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+      let p = "", l = document.getElementById("pwdLen").value;
+      for (let i = 0; i < l; i++) p += c.charAt(Math.floor(Math.random() * c.length));
+      document.getElementById("pwdRes").innerText = p;
+    }
+
+    function copyPwd() {
+      const txt = document.getElementById("pwdRes").innerText;
+      if (txt !== "...") navigator.clipboard.writeText(txt).then(() => alert("Copied!"));
+    }
+
+    function unitConv() {
+      const km = document.getElementById("km").value;
+      if (km) document.getElementById("untRes").innerText = (km * 0.621371).toFixed(2) + " Miles";
+    }
+
+    function tipCalc() {
+      const b = +document.getElementById("bill").value, p = +document.getElementById("tipPerc").value;
+      if (b) document.getElementById("tipRes").innerText = "Tip: $" + (b * (p / 100)).toFixed(2);
+    }
+
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+        const btn = e.target.closest('.card').querySelector('button');
+        if (btn) btn.click();
+      }
+    });
+  </script>
+</body>
+
+</html>
